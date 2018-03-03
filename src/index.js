@@ -70,6 +70,7 @@ export default class Markdown extends Component {
     },
     markdownit: PropTypes.instanceOf(MarkdownIt),
     plugins: PropTypes.arrayOf(PropTypes.instanceOf(PluginContainer)),
+    containerStyle: PropTypes.any,
     style: PropTypes.any,
   };
 
@@ -81,6 +82,7 @@ export default class Markdown extends Component {
     rules: null,
     plugins: [],
     style: null,
+    containerStyle: null,
     markdownit: MarkdownIt({
       typographer: true,
     }),
@@ -122,7 +124,7 @@ export default class Markdown extends Component {
    * @param props
    */
   updateSettings(props = this.props) {
-    const { renderer, rules, style, plugins, markdownit } = props;
+    const { renderer, rules, containerStyle, style, plugins, markdownit } = props;
 
     if (renderer && rules) {
       console.warn(
@@ -168,7 +170,8 @@ export default class Markdown extends Component {
           {
             ...styles,
             ...style,
-          }
+          },
+          containerStyle,
         );
       }
     }

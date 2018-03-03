@@ -2,8 +2,8 @@ import React, { Component, PropTypes } from "react";
 import { Text, View } from "react-native";
 import getUniqueID from "./util/getUniqueID";
 
-export function rootRenderRule(children) {
-  return <View key={getUniqueID()}>{children}</View>;
+export function rootRenderRule(children, style) {
+  return <View key={getUniqueID()} style={style}>{children}</View>;
 }
 
 /**
@@ -15,9 +15,10 @@ export default class AstRenderer {
    * @param {Object.<string, function>} renderRules
    * @param {any} style
    */
-  constructor(renderRules, style) {
+  constructor(renderRules, style, containerStyle) {
     this._renderRules = renderRules;
     this._style = style;
+    this._containerStyle = containerStyle;
   }
 
   /**
@@ -66,6 +67,6 @@ export default class AstRenderer {
    */
   render = nodes => {
     const children = nodes.map(value => this.renderNode(value, []));
-    return rootRenderRule(children);
+    return rootRenderRule(children, this._containerStyle);
   };
 }
